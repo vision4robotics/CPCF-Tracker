@@ -1,5 +1,4 @@
-%   This function runs the ARCF-HC tracker on the video specified in 
-%   "configSeqs".
+%   This function runs the CPCF tracker.
 %   This function is based on STRCF paper.
 %   Details of some parameters are not presented in the paper, you can
 %   refer to BACF/DSST/ECO paper for more details.
