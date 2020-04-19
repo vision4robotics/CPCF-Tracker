@@ -1,10 +1,9 @@
-%   This function runs the ARCF-HC tracker on the video specified in 
-%   "configSeqs".
+%   This function runs the CPCF tracker.
 %   This function is based on STRCF paper.
 %   Details of some parameters are not presented in the paper, you can
 %   refer to BACF/DSST/ECO paper for more details.
 
-function results = run_CPCF(seq, rp, bSaveImage,gamma,lr)
+function results = run_CPCF(seq, rp, bSaveImage)
 % Feature specific parameters
 hog_params.cell_size = 4;
 hog_params.compressed_dim = 10;
@@ -72,13 +71,13 @@ params.scale_step = 1.03;
 params.scale_model_max_area = 32*16;
 params.scale_lambda = 1e-4;
 
-params.learning_rate = lr;
-params.admm_gamma = gamma ; 
+params.learning_rate = 0.0192;
+params.admm_gamma = 0.8 ; 
 
 params.admm_iterations = 5;
 params.admm_lambda = 0.01;
 % Visualization
-params.visualization = 0;               % Visualiza tracking and detection scores
+params.visualization = 1;               % Visualiza tracking and detection scores
 
 % GPU
 params.use_gpu = false;                 % Enable GPU or not

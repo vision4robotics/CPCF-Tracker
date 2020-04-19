@@ -190,17 +190,6 @@ scale_model_sz = floor(params.init_sz * params.scale_model_factor);
 % set maximum and minimum scales
 min_scale_factor = params.scale_step ^ ceil(log(max(5 ./ img_support_sz)) / log(params.scale_step));
 max_scale_factor = params.scale_step ^ floor(log(min([size(im,1) size(im,2)] ./ base_target_sz)) / log(params.scale_step));
-    
-% nScales = params.number_of_scales;
-% scale_step = params.scale_step;
-% scale_exp = (-floor((nScales-1)/2):ceil((nScales-1)/2));
-% scaleFactors = scale_step .^ scale_exp;
-
-% if nScales > 0
-%     %force reasonable scale changes
-%     min_scale_factor = scale_step ^ ceil(log(max(5 ./ img_support_sz)) / log(scale_step));
-%     max_scale_factor = scale_step ^ floor(log(min([size(im,1) size(im,2)] ./ base_target_sz)) / log(scale_step));
-% end
 
 seq.time = 0;
 
@@ -335,8 +324,8 @@ while true
             else
                 %Limit the value of psr
                 model_xf = ((1 - learning_rate) * model_xf) + (learning_rate * xlf{k});
-                psr_value = psr(M_prev,rate);
-                Rmax = max(M_prev(:));
+                psr_value = psr(M_curr,rate);
+                Rmax = max(M_curr(:));
                 beta = 100;
                 psrm = psr_value + beta * Rmax;
                 all_psr(seq.frame) = psr_value;
@@ -465,49 +454,20 @@ while true
         if size(im_to_show,3) == 1
             im_to_show = repmat(im_to_show, [1 1 3]);
         end
-           
-%     code for visualization
+         
         all_psr(seq.frame) = psr(M_curr_plot,rate);
         M_prevf = fft2(M_prev_plot);
         M_currf = fft2(M_curr_plot);
         resp_corr = fftshift(ifft2(conj(M_currf) .* M_prevf));
-        
-        
-        subplot(4,2,2);surf((M_curr), 'FaceColor','interp','EdgeColor','k','FaceAlpha',0.8);axis([0 50 0 50 -0.005 0.025]);colormap(jet);view(140,20);
-        subplot(4,2,4);surf((M_prev), 'FaceColor','interp','EdgeColor','k','FaceAlpha',0.8);axis([0 50 0 50 -0.005 0.025]);colormap(jet);view(140,20);
-        subplot(4,2,1);surf((resp_corr), 'FaceColor','interp','EdgeColor','k','FaceAlpha',0.8);axis([0 50 0 50 -0.005 0.025]);colormap(jet);view(140,20);
-        subplot(4,2,3);surf((fftshift(z)), 'FaceColor','interp','EdgeColor','k','FaceAlpha',0.8);axis([0 50 0 50 -0.005 0.025]);colormap(jet);view(140,20);
-        if seq.frame == 214
-            z214 = fftshift(z);
-        end
-        if seq.frame == 265
-            z265 = fftshift(z);
-        end
-        if seq.frame == 368
-            z368 = fftshift(z);
-        end
-        if seq.frame == 403
-            z403 = fftshift(z);
-        end
-        if seq.frame == 426
-            z426 = fftshift(z);
-        end
-        if seq.frame == 245
-            z245 = fftshift(z);
-            m245 = M_curr_plot;
-        end
-         if seq.frame == 246
-            z246= fftshift(z);
-            m246 = M_curr_plot;
-         end
-        if seq.frame == 247
-            z247= fftshift(z);
-            m247 = M_curr_plot;
-        end
-        
+     
+%         subplot(4,2,2);surf((M_curr), 'FaceColor','interp','EdgeColor','k','FaceAlpha',0.8);axis([0 50 0 50 -0.005 0.025]);colormap(jet);view(140,20);
+%         subplot(4,2,4);surf((M_prev), 'FaceColor','interp','EdgeColor','k','FaceAlpha',0.8);axis([0 50 0 50 -0.005 0.025]);colormap(jet);view(140,20);
+%         subplot(4,2,1);surf((resp_corr), 'FaceColor','interp','EdgeColor','k','FaceAlpha',0.8);axis([0 50 0 50 -0.005 0.025]);colormap(jet);view(140,20);
+%         subplot(4,2,3);surf((fftshift(z)), 'FaceColor','interp','EdgeColor','k','FaceAlpha',0.8);axis([0 50 0 50 -0.005 0.025]);colormap(jet);view(140,20);   
         drawnow   
         
-        subplot(4,2,[5 6 7 8]); imshow(im_to_show);
+%         subplot(4,2,[5 6 7 8]); 
+        imshow(im_to_show);
         hold on;
         rectangle('Position',rect_position_vis, 'EdgeColor','g', 'LineWidth',2);
         text(10, 10, [int2str(seq.frame) '/'  int2str(seq.len)], 'color', [0 1 1]);

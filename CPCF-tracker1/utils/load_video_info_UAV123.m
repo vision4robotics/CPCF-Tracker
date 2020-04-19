@@ -23,7 +23,6 @@ function seq = load_video_info_UAV123(video_name, database_folder, ground_truth_
     seq.st_frame = seqs{i}.startFrame;      % 开始帧数
     seq.en_frame = seqs{i}.endFrame;        % 结束帧数
     seq.len = seq.en_frame-seq.st_frame+1;  % 序列长度
-    seq.nz = seqs{i}.nz;
     
     ground_truth = dlmread([ground_truth_path '\' seq.video_name '.txt']);
     seq.ground_truth = ground_truth;        % 保存groundtruth
