@@ -17,6 +17,22 @@ Changhong Fu, Xiaoxiao Yang, Fan Li, Changjing Liu, and Peng Lu.
 
 Learning Consistency Pursued Correlation Filters for Real-Time UAV Tracking.
 
+This paper has been accpeted by IROS2020. You can find it at: https://arxiv.org/abs/2008.03704.
+
+If you want to refer to this paper, please cite it as:
+
+@article{Fu2020Learn,
+
+author = {Changhong Fu and Xiaoxiao Yang and Fan Li and Juntao Xu and Changjing Liu and Peng Lu},
+
+title = {Learning Consistency Pursued Correlation Filters for Real-Time UAV Tracking},
+
+year = {2020},
+
+journal= {arXiv:2008.03704}
+
+}
+
 # Contact 
 Changhong Fu
 
